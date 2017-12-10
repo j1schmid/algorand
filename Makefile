@@ -1,5 +1,5 @@
  
-TEXFILE = main
+TEXFILE = algorand
 
 
 all : bibtex

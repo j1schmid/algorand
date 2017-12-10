@@ -1,0 +1,89 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[ngerman]{babel}							% enables Hyphenation for german
+% \usepackage[babel, german=quotes]{csquotes}
+\usepackage{subfigure}								% enables subfigures
+\usepackage{amsmath}								% enhances math output
+\usepackage{amsfonts}								% additional math fonts
+\usepackage{graphicx}								% alternativ graphic interface
+\usepackage{color,listings}	 						% codesequences 
+\usepackage{import}
+\usepackage{cite}
+% \usepackage{biblatex}
+\usepackage{fancyhdr}			%% fuer Pagestyle fancyhdr mit eigenen Kopf und Fusszeilen
+
+
+\author{Heinz Hoffmann und Jonas Schmid}
+
+%% Pagestyle mit eigenen Kopf und Fusszeilen
+\pagestyle{fancy}
+\fancyhf{}								%% leerraeumen
+% \fancyhead[L]{\includegraphics[height = 20pt]{logo.png}}
+% \fancyhead[R]{Simulationstools}
+\renewcommand{\headrulewidth}{0.0pt}	%% obere Trennlinie
+% \fancyfoot[C]{\thepage}					%% Seitennummer
+\fancyfoot[L]{Heinz Hoffmann und Jonas Schmid}	
+\fancyfoot[R]{20. Dezember 2017}		
+\renewcommand{\footrulewidth}{0.4pt}	%% untere Trennlinie
+
+
+\begin{document}
+
+\section*{ \center \textbf{\Large Algorand: Eine vielversprechende Blockchain basierte Kryptow\"ahrungen}}
+% \section{Einf\"uhrung} \label{sec:introduction}
+
+Die popul\"arsten Blockchain basierten Kryptow\"ahrungen wie Bitcoin und Ethereum haben noch einige technische M\"angel.
+Insbesodere der Energieverschwenderischen Proof-Of-Work kann auch wegen den grossen 
+und damit m\"achtigen Mining Pools zum Problem werden.
+Zudem stossen Bitcoin und in absehbarer Zeit auch Ethereum an ihre Kapazit\"atsgrenzen (Transaktionen pro Zeit).
+Einige Leute um den MIT Professor und Turing Award Winner Silvio Micali haben das alternative Verfahren Algorand vorgestellt.
+Dieses verwendet eine Art Proof-of-Stake mit einem speziel angepassten Byzantine Agreement Verfahren und soll eine deutlich gr\"ossere Kapazit\"at bereit stellen als bisherige Blockchain basierte L\"osungen.
+Die "Transaction Confirmation Time" betr\"agt weniger als eine Minute und es k\"onnen rund 125 mal mehr Transaktionen get\"atigt werden als bei Bitcoin \cite[Introduction]{Gilad:2017:ASB:3132747.3132757}.
+Soweit wir das beurteilen k\"onne, wird das System aktuell noch nicht produktiv eingesetzt.
+Es wurde jedoch ein Prototyp mit einigen hunderttausend Nodes erfolgreich simuliert \cite[Kapitel Implementation \& Evaluation]{Gilad:2017:ASB:3132747.3132757}.
+Die zur Verf\"ugung stehenden Quellen sind gr\"ossten Teils auf eine kleine Gruppe zur\"uck zu f\"uhren,
+die meisten Arbeiten im CSAIL am MIT. % Computer Science and Artificial Inteligence Laboratory
+Nachfolgend beziehen wir uns mehrheitlich auf das Paper \cite{Gilad:2017:ASB:3132747.3132757}, welches Algorand resp. den Algorithmus detailiert und vollst\"andig beschreibt, ein grober \"Uberblick wird im Abschnitt Overview oder im Betrag \cite{ScalingConsensus} gegeben.
+
+Algorand basiert auf einer Blockchain sehr ähnlich wie Bitcoin.
+Wie bereits erw\"ahnt wird eine Art Proof-of-Stake Verfahren angewendet.
+Dabei wird jeder neue Block durch ein Committee bestehend aus weniger als 100 Nodes\footnote{Bei der Testimplementation wurden 26 Nodes angestrebt.} mittels Byzantine Agreement zusammengestellt resp. ausgewählt.
+Das Committee wird zufällig aber gewichtet mit den jeweiligen Balances der Nodes für jeden neuen Block und auch für jeden Schritt im Byzantine Agreement Verfahren neu ausgew\"ahlt.
+Das heisst ein Node welcher viel "Geld" im System hat, bekommt \"ofter ein Mandat im Committee als ein Node welcher wenig Geld im System hat \footnote{Es k\"onnen auch mehrere Committee Mandate auf einen einzelnen Node fallen.}, damit ist Algorand nicht anf\"allig auf \textit{Sybill attacks}.
+Das Auswahlverfahren - die sogenannte \textit{cryptographic sortition} - kann jeder Node für sich selbst durchführen, dies kann vereinfacht als Pseudozufallszahlengenerator betrachtet werden.
+Dieser wird mit einem \textit{seed} abhängig vom vorangehenden Block resp. der vorangehenden Byzantine Agreement Runde und dem \textit{private key} initialisiert.
+Abh\"angig von dieser Zufallszahl ist dann bestimmt ob der jeweilige Node als \textit{committee} Mitglied fungiert.
+Der Zufallszahlengenerator (\textit{verifiable random function} kurz VRF) ist so konstruiert,
+dass die Ausgegebene Zufallszahl und damit die Rollenzuteilung von jedem Node \"uberpr\"uft werden kann,
+nat\"urlich aber ohne den \textit{private key} des jeweiligen Nodes zu kennen.
+Die jeweiligen \textit{committee} Mitglieder setzten dann einen Block aus den im bekannten \textit{unconfirmed transations} zusammen und versendet diesen dann ins gesammte Netztwerk.
+Ausgewählt wird dann der Block des Mitgliedes mit der höchsten Priorität.
+Falls nun ein b\"osartiger Node in dieser Position verschiedene Bl\"ocke oder einen fehlerhaften Block
+verteilt, kann sich das \textit{commitee} nicht einigen und erweitert die Blockchain um einen leeren Block ohne Transaktionen.
+
+TODO da ist das ganze für mich noch leicht diffus.
+
+Dann wird mit einem neu bestimmten \textit{comittee} das ganze wiederhohlt.
+
+\paragraph*{Empfehlung f\"ur eine Vorlesung oder Seminar}
+Das Paper \cite{Gilad:2017:ASB:3132747.3132757} w\"urde sich gut eignen f\"ur eine weitere "Buchdiskussion".
+Es werden einige Aspekte bez\"uglich Distributed Systems/Ledger aufgegriffen welche 
+im Buch "Distributed Ledger Systems" von Roger Wattenhofer tematisiert wurden, z.B. Byzantine Agreement.
+
+\cite{Gilad:2017:ASB:3132747.3132757}
+\cite{Chen:2017}
+
+
+\newpage
+
+% \begin{figure}[htb]
+% 	\centering
+% 	\includegraphics[width=\textwidth, angle=0, clip, trim=8mm 100mm 90mm 8mm]{bilder/pksys_blockschaltbild}
+% 	\caption{Blockschaltbild des drahtlosen Patientenklingelsystem}
+% 	\label{fig:pksys_blockschaltbild}
+% \end{figure}
+
+% \bibliographystyle{plain}
+\bibliographystyle{apalike} % makes reference labels like [Redmond et al., 2016]
+\bibliography{algorand}{}
+
+\end{document}
