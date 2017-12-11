@@ -70,11 +70,13 @@ Dann wird mit einem neu bestimmten \textit{comittee} das ganze wiederhohlt.
 Das Hinzuf\"ugen eines Blocks zur Blockchain vollzieht sich in drei Schritten.
 \begin{enumerate}[label=\arabic*)]
 	\item \textbf{Block erzeugen und verteilen}\\
-	\textbf{Jeder} Node f\"uhrt bei sich die Sortition durch, um herauszufinden, ob er einen Block verteilen darf. Falls ja f\"ugt er alle Transaktionen, die er m\"ochte dem Block hinzu und "broadcasted" diesen dem Netzwerk. Er wird einer von maximal ca. 70 Nodes sein, der einen Block broadcastet. Jeder dieser max. 70 broadcasteten Bl\"ocke hat aber eine gewisse Priorit\"at, welche ebenfalls aus der Sortition kommt. 
+	\textbf{Jeder} Node f\"uhrt bei sich die Sortition durch, um herauszufinden, ob er einen Block verteilen darf. Falls ja f\"ugt er alle Transaktionen, die er m\"ochte dem Block hinzu und "broadcasted" diesen dem Netzwerk. Er wird einer von maximal ca. 70 Nodes sein, der einen Block broadcastet. Jeder dieser max. 70 broadcasteten Bl\"ocke hat aber eine gewisse Priorit\"at, welche ebenfalls aus der Sortition kommt.
+	 
 	\item \textbf{Byzantine Agreement}\\
-	Nun wird in zwei Schritten das Problem \grqq{}einen aus vielen Bl\"ocken ausw\"ahlen\grqq{} auf das Problem "entweder den proposten Block oder einen leeren Block auszuw\"ahlen"
+	Nun wird in zwei Schritten das Problem \grqq{}einen aus vielen Bl\"ocken ausw\"ahlen\grqq{} auf das bin\"are Problem \grqq{}entweder den proposten Block oder einen leeren Block auszuw\"ahlen\grqq{} reduziert.
 	\begin{enumerate}[label=\Roman*)]
 		\item Nach einer bestimmten Wartezeit(zur Synchronisation) gibt ein Gremium von zuf\"allig durch Sortition ausgew\"ahlten Nodes eine Stimme für je einen Block ab. Sie w\"ahlen jeweils von den für sie sichtbaren Blocks denjenigen mit der h\"ochsten Priorit\"at. Diese Stimme broadcasten Sie wieder durch das Netzwerk.
+		
 		\item Ein erneut durch Sortition zuf\"allig gew\"ahltes Gremium wartet bis entweder gen\"ugend Votes für einen Block zusammenkamen, oder bis eine bestimmte Zeit abgelaufen ist. 
 		Sind gen\"ugend Votes zusammengekommen, wird der entsprechend gew\"ahlte Block promotet.
 		Ist die Zeit abgelaufen, wird ein leerer Block promoted. 
