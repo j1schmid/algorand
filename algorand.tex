@@ -8,6 +8,7 @@
 \usepackage{color,listings}	 						% codesequences 
 \usepackage{import}
 \usepackage{cite}
+\usepackage{enumitem}
 % \usepackage{biblatex}
 \usepackage{fancyhdr}			%% fuer Pagestyle fancyhdr mit eigenen Kopf und Fusszeilen
 
@@ -63,6 +64,31 @@ verteilt, kann sich das \textit{commitee} nicht einigen und erweitert die Blockc
 TODO da ist das ganze für mich noch leicht diffus.
 
 Dann wird mit einem neu bestimmten \textit{comittee} das ganze wiederhohlt.
+
+\newpage
+\paragraph*{Block zur Blockchain hinzuf\"ugen }
+Das Hinzuf\"ugen eines Blocks zur Blockchain vollzieht sich in drei Schritten.
+\begin{enumerate}[label=\arabic*)]
+	\item \textbf{Block erzeugen und verteilen}\\
+	\textbf{Jeder} Node f\"uhrt bei sich die Sortition durch, um herauszufinden, ob er einen Block verteilen darf. Falls ja f\"ugt er alle Transaktionen, die er m\"ochte dem Block hinzu und "broadcasted" diesen dem Netzwerk. Er wird einer von maximal ca. 70 Nodes sein, der einen Block broadcastet. Jeder dieser max. 70 broadcasteten Blöcke hat aber eine gewisse Priorität, welche ebenfalls aus der Sortition kommt. 
+	\item \textbf{Byzantine Agreement}\\
+	Nun wird in zwei Schritten das Problem "einen aus vielen Blöcken auswählen" auf das Problem "entweder den proposten Block oder einen leeren Block auszuwählen"
+	\begin{enumerate}[label=\Roman*)]
+		\item Nach einer bestimmten Wartezeit(zur Synchronisation) gibt ein Gremium von zufällig durch Sortition ausgewählten Nodes eine Stimme für je einen Block ab. Sie wählen jeweils von den für sie sichtbaren Blocks denjenigen mit der höchsten Priorität. Diese Stimme broadcasten Sie wieder durch das Netzwerk.
+		\item Ein erneut durch Sortition zufällig gewähltes Gremium wartet bis entweder genügend Votes für einen Block zusammenkamen, oder bis eine bestimmte Zeit abgelaufen ist. 
+		Sind genügend Votes zusammengekommen, wird der entsprechend gewählte Block promotet.
+		Ist die Zeit abgelaufen, wird ein leerer Block promoted. 
+		Alle gutartigen Nodes werden hier entweder denselben vollen Block oder einen leeren Block promoten. 
+	\end{enumerate}
+	\item \textbf{Binary Byzantine Agreement}\\
+	Ab hier wird in einem Binären Byzantinischen Verfahren entweder der eine "volle" Block oder der leere Block gewählt. Falls es keine Fehlbaren Nodes gibt ist dieser Prozess in wieder zwei Schritten beendet. Wird der Prozess aber von Fehlbaren Nodes gezielt mit z.B. promotions von falschen Blöcken gestört(Was schon schwierig ist, weil diese Blöcke ins Gremium hätten gewählt werden müssen) kann dieser Vorgang bis zu 9 Schritte andauern.
+	In jedem Schritt wird jeweils ein neues Gremium gewählt, welches aufgrund von der Vergangenheit Votes für den einen vollen oder einen leeren Block abgeben. Jeder dritte dieser Schritte wird ausserdem eine "gemeinsame" Münze geworfen, welche hilft Fortschritt zu garantieren. 
+\end{enumerate}
+Dieser ganze Prozess dauert ca. 20 Sekunden. Konservativerweise wurden die Wartezeiten der Nodes, bis sie voten so gewählt, dass dieser ganze Prozess rund eine Minute dauert.
+
+
+
+\newpage
 
 \paragraph*{Empfehlung f\"ur eine Vorlesung oder Seminar}
 Das Paper \cite{Gilad:2017:ASB:3132747.3132757} w\"urde sich gut eignen f\"ur eine weitere "Buchdiskussion".
