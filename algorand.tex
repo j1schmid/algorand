@@ -106,7 +106,7 @@ F\"ur jede Kommunikationsrunde berechnet jeder Node f\"ur sich ob er f\"ur ein o
 Dazu wird mittels \textit{verifiable random function}, kurz VRF, aus dem \textit{private key} und einem bekannten \textit{seed} ein \textit{hash} und ein Beweis $\pi$ berechnet.
 Die Mandate werden abh\"angig vom jeweiligen Balance und berechnetem Hash der Nodes verteilt.
 Das heisst ein Node welcher viel Geld im System hat, bekommt \"ofter ein Mandat zugeteilt, als ein Node welcher wenig Geld im System hat.
-Somit ist das Auswahlverfahren vom Typ Proof-of-Stake und sch\"tzt Algorand vor \textit{Sybill attacks}.
+Somit ist das Auswahlverfahren vom Typ Proof-of-Stake und schätzt Algorand vor \textit{Sybill attacks}.
 Der \textit{seed} ist jeweils abh\"angig von der vorangehenden Kommunikationsrunde.
 Weiter wird mit dem Hash jedem Node eine Priorit\"at zugeteilt, welche f\"ur das Byzantine Agreement verwendet wird.
 Die VRF ist so konzipiert, dass der Hash nur mittels Private Key berechnet werden kann.
